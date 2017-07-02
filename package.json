@@ -1,0 +1,33 @@
+{
+  "name": "grunt-scaffold",
+  "version": "1.0.0",
+  "description": "a scaffold of grunt",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kunkuntang/grunt-scaffold.git"
+  },
+  "keywords": [
+    "grunt"
+  ],
+  "author": "kuntang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kunkuntang/grunt-scaffold/issues"
+  },
+  "homepage": "https://github.com/kunkuntang/grunt-scaffold#readme",
+  "dependencies": {
+    "express": "^4.15.3",
+    "grunt": "^1.0.1"
+  },
+  "devDependencies": {
+    "grunt-concurrent": "^2.3.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-mocha-test": "^0.13.2",
+    "grunt-nodemon": "^0.4.2",
+    "mocha": "^3.4.2"
+  }
+}

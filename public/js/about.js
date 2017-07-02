@@ -1,0 +1,1 @@
+document.body.append('this is a message from about.js')

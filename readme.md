@@ -4,11 +4,9 @@
 
 ### 使用方法
 
-项目基于[node.js](https://nodejs.org/en/)，热更新需要借助chrmoe插件[livereload](http://livereload.com/)，还没有安装的可以去下面网站自行安装：
+项目基于[node.js](https://nodejs.org/en/)，热更新已经更换为bowerser-sync，无须再安装livereload插件！！
 
 - [node.js下载](https://nodejs.org/en/download/)
-- [livereload下载](https://chrome.google.com/webstore/search/livereload?utm_source=chrome-ntp-icon)
-*对于livereload下载不了的华广的同学可以试一下通过这个地址[下载](http://125.216.145.57:9080/download?resource=softwares/liveReload_chromeExtension.rar&name=liveReload_chrome)，下载完后解压，然后打开chrome浏览器，在地址栏输入chrome://extensions/，最后把解压后缀为crx的文件拖到chrome页面中就可安装*
 
 上面的东西都准备好之后，运行以下命令**安装依赖**：
 

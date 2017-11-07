@@ -1,6 +1,6 @@
 const mozjpeg = require('imagemin-mozjpeg');
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
     // 显示各任务执行的时间
     require('time-grunt')(grunt);
 
@@ -10,17 +10,10 @@ module.exports = function (grunt) {
     grunt.initConfig({
         watch: {
             html: {
-                files: ['src/**/*.html'],
-                options: {
-                    livereload: true,
-                },
+                files: ['src/**/*.html']
             },
             js: {
-                files: ['server.js', 'public/js/**/*.js'],
-                // tasks: ['jshint'],
-                options: {
-                    livereload: true
-                }
+                files: ['server.js', 'public/js/**/*.js']
             }
         },
 
@@ -30,8 +23,8 @@ module.exports = function (grunt) {
                 options: {
                     args: ['dev'],
                     nodeArgs: ['--debug'],
-                    callback: function (nodemon) {
-                        nodemon.on('log', function (event) {
+                    callback: function(nodemon) {
+                        nodemon.on('log', function(event) {
                             console.log(event.colour);
                         });
                     },
@@ -73,32 +66,21 @@ module.exports = function (grunt) {
         uglify: {
             generated: {
                 options: {
-                    mangle: {
-                        reserved: ['jQuery']
-                    },
-                    sourceMap: true
+
+                    sourceMap: true,
+                    compress: true
                 },
                 files: [{
                     expand: true,
-                    src: ['dist/assets/js/*.js', '!dist/assets/js/*.min.js'],
-                    dest: 'dist/assets',
-                    cwd: '.',
-                    rename: function (dst, src) {
+                    src: ['**/*.js'],
+                    dest: 'dist/asset/js',
+                    cwd: 'src/asset/js',
+                    rename: function(dst, src) {
                         // To keep the source js files and make new files as `*.min.js`:
                         // return dst + '/' + src.replace('.js', '.min.js');
                         // Or to override to src:
-                        return src;
-                    }
-                }, {
-                    expand: true,
-                    src: ['dist/js/*.js', '!dist/js/*.min.js'],
-                    dest: 'dist/js',
-                    cwd: '.',
-                    rename: function (dst, src) {
-                        // To keep the source js files and make new files as `*.min.js`:
                         // return dst + '/' + src.replace('.js', '.min.js');
-                        // Or to override to src:
-                        return src;
+                        return dst + '/' + src;
                     }
                 }]
             }
@@ -106,7 +88,7 @@ module.exports = function (grunt) {
 
         htmlmin: {
             build: {
-                options: {                                 // Target options
+                options: { // Target options
                     removeComments: true,
                     collapseWhitespace: true
                 },
@@ -123,10 +105,10 @@ module.exports = function (grunt) {
             target: {
                 files: [{
                     expand: true,
-                    cwd: 'public/css',
+                    cwd: 'src/asset/css',
                     src: ['*.css', '!*.min.css'],
-                    dest: 'dist/css',
-                    ext: '.min.css'
+                    dest: 'dist/asset/css',
+                    //ext: '.min.css'
                 }]
             }
         },
@@ -140,9 +122,9 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: 'public/img',
+                    cwd: 'src/asset/img',
                     src: ['**/*.{png,jpg,gif}'],
-                    dest: 'dist/img'
+                    dest: 'dist/asset/img'
                 }]
             }
         },
@@ -155,31 +137,38 @@ module.exports = function (grunt) {
 
         copy: {
             main: {
-                files: [
-                    {
-                        expand: true,
-                        src: ['**/*.js', '**/*.css'],
-                        dest: 'dist/',
-                        cwd: 'src/'
-                        // flatten: true       // 是否展平目录里的文件，即把源目录下的文件全都拷到同一层
-                    }, {
-                        expand: true,
-                        src: ['**/*'],  // 拷贝的源路径
-                        cwd: 'public/',
-                        dest: 'dist/',       // 拷贝的目标目录
-                        //filter: 'isFile'     // 为true是拷贝仅含有文件的文件夹
-                    }
+                files: [{
+                    expand: true,
+                    src: ['**/*.js', '**/*'], // 拷贝的源路径
+                    cwd: 'src/',
+                    dest: 'dist/', // 拷贝的目标目录
+                    //filter: 'isFile'     // 为true是拷贝仅含有文件的文件夹
+                }]
+            }
+        },
+
+        browserSync: {
+            bsFiles: {
+                src: [
+                    'src/css/*.css',
+                    'src/js/*.js',
+                    'src/**/*.html'
                 ]
+            },
+            options: {
+                server: {
+                    baseDir: "./src"
+                }
             }
         },
 
         concurrent: {
-            target: ['watch', 'nodemon'],
+            target: ['watch', 'browserSync'],
             build: [
                 'uglify:generated',
                 'htmlmin:build',
                 'cssmin',
-                'imagemin'
+                'imagemin',
             ],
             options: {
                 logConcurrentOutput: true

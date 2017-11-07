@@ -38,6 +38,15 @@ function getHTML(page, subPage) {
 
 module.exports = function (app) {
 
+    app.get('/', function (req, res) {
+        var page = req.params.page;
+        var subPage = req.params.subPage;
+
+        var html = getHTML('index', null)
+
+        res.send(html)
+    })
+
     app.get('/:page', function (req, res) {
         var page = req.params.page;
         var subPage = req.params.subPage;
